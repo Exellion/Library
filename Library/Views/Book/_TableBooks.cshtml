@@ -1,0 +1,54 @@
+﻿@model Library.Models.Custom.BooksViewModel
+
+@{ 
+    string pagPrevClass = Model.Paginator.isFirstPage ? "invisible" : "";
+    string pagNextClass = Model.Paginator.isLastPage ? "invisible" : "";
+}
+
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model.Books)
+            {
+                string infoPath = "/Book/ShowBookInfo?bookId=" + book.Id;
+                <tr>
+                    <td>@book.Name</td>
+                    <td>
+                        @foreach(var author in book.Authors)
+                        {
+                            <span>@author.FirstName&nbsp;@author.LastName</span>
+                            <br/>
+                        }
+                    </td>
+                    <td>@book.Quantity</td>
+                    <td>
+                        <a href="@infoPath" class="btn btn-info btn-xs" data-bookId="@book.Id">Info</a>               
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <ul id="books_paginator" class="pagination">
+        <li class="@pagPrevClass">
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li><a href="#" aria-label="Current">@Model.Paginator.CurrentPage</a></li>
+        <li class="@pagNextClass">
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>

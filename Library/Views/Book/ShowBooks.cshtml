@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Books";
+}
+
+<div class="page-header">
+    <h3>@ViewBag.Title</h3>
+</div>
+<div class="row">
+    <div id="filter_container" class="col-md-2">
+        @Html.Partial("/Views/Book/_Filters.cshtml")
+    </div>
+    <div id="table_container" class="col-md-8"></div> 
+</div>
+
+@section scripts {  
+    <script src="~/Scripts/Custom/books-table.js"></script>
+}

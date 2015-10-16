@@ -1,0 +1,67 @@
+﻿@model Library.Models.Custom.BookViewModel
+
+@{ 
+    ViewBag.Title = Model.Name;
+}
+
+<div class="page-header">
+    <h3>@ViewBag.Title</h3>
+</div>
+<div class="col-md-4">
+    <div class="col-md-12">
+        @foreach(var author in Model.Authors)
+        {
+        <span>@author.FirstName&nbsp;@author.LastName</span>
+        <br />
+        }
+        <label>Quantity - @Model.Quantity</label>
+    </div>
+    <div class="col-md-12 control">
+        @if (Model.isAlreadyTaken)
+        {
+            string href = "/Book/ReturnBook?bookId=" + Model.Id;
+            <a href="@href" class="btn btn-info">Return book</a>
+        }
+        else
+        {
+            if (Model.Quantity > 0)
+            {
+                string href = "/Book/GetBook?bookId=" + Model.Id;
+                <a href="@href" class="btn btn-info">Get book</a>
+            }
+        }
+    </div>
+</div>
+<div class="col-md-8">
+    @if(Model.History.Count() == 0)
+    {
+        <label>book history is empty</label>
+    }
+    else
+    {
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>DateOut</th>
+                    <th>DateIn</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.History)
+                {
+                    <tr>
+                        <td>@item.UserName.Name</td>
+                        <td>@item.DateOut</td>
+                        <td>@item.DateIn</td>                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@section scripts
+{
+    @*<script src="~/Scripts/Custom/book-info.js"></script>*@
+}

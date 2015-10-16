@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Library" Class="LibraryDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\Library.mdf;Integrated Security=True;MultipleActiveResultSets=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="LibraryConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.UserName" Member="UserName">
+    <Type Name="UserName">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="UserName_Journal" Member="Journal" ThisKey="Id" OtherKey="UserId" Type="Journal" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Author" Member="Author">
+    <Type Name="Author">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="Author_AuthorToBook" Member="AuthorToBook" ThisKey="Id" OtherKey="AuthorId" Type="AuthorToBook" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AuthorToBook" Member="AuthorToBook">
+    <Type Name="AuthorToBook">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AuthorId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Author_AuthorToBook" Member="Author" ThisKey="AuthorId" OtherKey="Id" Type="Author" IsForeignKey="true" />
+      <Association Name="Book_AuthorToBook" Member="Book" ThisKey="BookId" OtherKey="Id" Type="Book" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Book" Member="Book">
+    <Type Name="Book">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Book_AuthorToBook" Member="AuthorToBook" ThisKey="Id" OtherKey="BookId" Type="AuthorToBook" />
+      <Association Name="Book_Journal" Member="Journal" ThisKey="Id" OtherKey="BookId" Type="Journal" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Journal" Member="Journal">
+    <Type Name="Journal">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BookId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateOut" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateIn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Book_Journal" Member="Book" ThisKey="BookId" OtherKey="Id" Type="Book" IsForeignKey="true" />
+      <Association Name="UserName_Journal" Member="UserName" ThisKey="UserId" OtherKey="Id" Type="UserName" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

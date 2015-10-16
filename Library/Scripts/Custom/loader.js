@@ -1,0 +1,1 @@
+﻿var loader = $('<div class="loader"><img src="/Content/Images/loader.gif"/></div>');

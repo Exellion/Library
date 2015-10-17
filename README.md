@@ -1,6 +1,6 @@
 The project is a simple web application that simulates the online library.
 
-It was developed on ASP.NET MVC 5 framework. As development environment used Visual Studio Community 2015.
+It was developed on ASP.NET MVC 4 framework. As development environment used Visual Studio Community 2015.
 
 For run, at first you need restore the NuGet packages.
 
